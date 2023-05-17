@@ -2,16 +2,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,14 +18,14 @@ class HippodromeTest {
     @DisplayName("Тесты конструктора класса")
     class HippodromeConstructorTests{
         @Test
-        @DisplayName("Проверка исключения при null аргументе")
-        public void checkExceptionNullArgument(){
+        @DisplayName("Проверка исключения при null аргументе List")
+        public void checkExceptionNullListArgument(){
             assertThrows(IllegalArgumentException.class,() -> new Hippodrome(null));
         }
 
         @Test
-        @DisplayName("Проверка сообщения исключения при null аргументе")
-        public void checkExceptionMessageNullArgument(){
+        @DisplayName("Проверка сообщения исключения при null аргументе List")
+        public void checkExceptionMessageNullListArgument(){
             try {
                 new Hippodrome(null);
                 fail("Expected exception was not thrown");
@@ -40,13 +36,13 @@ class HippodromeTest {
 
         @Test
         @DisplayName("Проверка исключения при передачи пустого списка в качестве аргумента")
-        public void checkExceptionEmptyArgument(){
+        public void checkExceptionEmptyListArgument(){
             assertThrows(IllegalArgumentException.class,() -> new Hippodrome(Collections.<Horse>emptyList()));
         }
 
         @Test
         @DisplayName("Проверка сообщения исключения при передачи пустого списка в качестве аргумента")
-        public void checkExceptionMessageEmptyArgument(){
+        public void checkExceptionMessageEmptyListArgument(){
             try {
                 new Hippodrome(Collections.<Horse>emptyList());
                 fail("Expected exception was not thrown");
@@ -96,7 +92,7 @@ class HippodromeTest {
         horses.add(superHorse);
 
 
-        assertEquals(superHorse,new Hippodrome(horses).getWinner());
+        assertSame(superHorse,new Hippodrome(horses).getWinner());  //можно и assertEquals (необходимо переопределять equals..), но этого хватает - достаточно сравнить ссылки
     }
 
 

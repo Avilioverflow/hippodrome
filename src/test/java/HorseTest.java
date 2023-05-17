@@ -18,14 +18,14 @@ class HorseTest {
     @DisplayName("Тесты конструктора класса")
     class ConstructorTests{
         @Test
-        @DisplayName("Проверка на исключение при первом аргументе null ")
-        public void checkExceptionNullFirstArg(){
+        @DisplayName("Проверка на исключение при аргументе Name = null ")
+        public void checkExceptionNullNameArg(){
             assertThrows(IllegalArgumentException.class,() -> new Horse(null,3));
         }
 
         @Test
-        @DisplayName("Проверка сообщения исключения при первом аргументе null ")
-        public void checkExceptionMessageNullFirstArg(){
+        @DisplayName("Проверка сообщения исключения при аргументе Name = null ")
+        public void checkExceptionMessageNullNameArg(){
             try {
                 new Horse(null,3);
                 fail("Expected exception was not thrown");
@@ -35,16 +35,16 @@ class HorseTest {
         }
 
         @ParameterizedTest
-        @DisplayName("Проверка исключения при первом аргументе - пустом, содерждащем одни пробелы и.т.д ")
+        @DisplayName("Проверка исключения при аргументе Name - пустом, содерждащем одни пробелы и.т.д ")
         @ValueSource(strings = {"","     "," ","\t","\n"})
-        public void checkExceptionEmptyFirstArg(String str){
+        public void checkExceptionEmptyNameArg(String str){
             assertThrows(IllegalArgumentException.class,() -> new Horse(str,3));
         }
 
         @ParameterizedTest
-        @DisplayName("Проверка сообщения исключения при первом аргументе - пустом, содерждащем одни пробелы и.т.д ")
+        @DisplayName("Проверка сообщения исключения при  аргументе Name - пустом, содерждащем одни пробелы и.т.д ")
         @ValueSource(strings = {"","     "," ","\t","\n"})
-        public void checkExceptionMessageEmptyFirstArg(String str){
+        public void checkExceptionMessageEmptyNameArg(String str){
             try {
                 new Horse(str,3);
                 fail("Expected exception was not thrown");
@@ -54,16 +54,16 @@ class HorseTest {
         }
 
         @ParameterizedTest
-        @DisplayName("Проверка исключения при втором аргументе - отрицательное значение")
+        @DisplayName("Проверка исключения при аргументе speed - отрицательное значение")
         @ValueSource(doubles = {-1, -2.5, Double.NEGATIVE_INFINITY})
-        public void checkExceptionNegativeSecondArg(Double number){
+        public void checkExceptionNegativeSpeedArg(Double number){
             assertThrows(IllegalArgumentException.class,() -> new Horse("Buzefal",number));
         }
 
         @ParameterizedTest
-        @DisplayName("Проверка сообщения исключения при втором аргументе - отрицательное значение")
+        @DisplayName("Проверка сообщения исключения при аргументе speed - отрицательное значение")
         @ValueSource(doubles = {-1, -2.5, Double.NEGATIVE_INFINITY})
-        public void checkExceptionMessageNegativeSecondArg(Double number){
+        public void checkExceptionMessageNegativeSpeedArg(Double number){
             try {
                 new Horse("Buzefal",number);
                 fail("Expected exception was not thrown");
@@ -73,16 +73,16 @@ class HorseTest {
         }
 
         @ParameterizedTest
-        @DisplayName("Проверка исключения при третьем аргументе - отрицательное значение")
+        @DisplayName("Проверка исключения при аргументе distance - отрицательное значение")
         @ValueSource(doubles = {-1, -2.5, Double.NEGATIVE_INFINITY})
-        public void checkExceptionNegativeThirdArg(Double number){
+        public void checkExceptionNegativeDistanceArg(Double number){
             assertThrows(IllegalArgumentException.class,() -> new Horse("Buzefal",3,number));
         }
 
         @ParameterizedTest
-        @DisplayName("Проверка сообщения исключения при третьем аргументе - отрицательное значение")
+        @DisplayName("Проверка сообщения исключения при аргументе distance - отрицательное значение")
         @ValueSource(doubles = {-1, -2.5, Double.NEGATIVE_INFINITY})
-        public void checkExceptionMessageNegativeThirdArg(Double number){
+        public void checkExceptionMessageNegativeDistanceArg(Double number){
             try {
                 new Horse("Buzefal",3,number);
                 fail("Expected exception was not thrown");
@@ -121,7 +121,7 @@ class HorseTest {
 
     @ParameterizedTest
     @ValueSource(doubles = {0.5,10,15,7.3,10000})
-    @DisplayName("Тест метода move с использованием мокирования cтатического метода getRandomDouble")
+    @DisplayName("Тест метода move с использованием мокирования static метода getRandomDouble")
     public void checkMove(Double testDouble){
         try(MockedStatic<Horse>horseMockedStatic = Mockito.mockStatic(Horse.class)){
             horseMockedStatic.when(() -> Horse.getRandomDouble(0.2,0.9)).thenReturn(testDouble);
